@@ -80,7 +80,7 @@ abstract class SetUp {
 
 
     public static function CreateOnSwitch($where) {
-
+        // TODO: Maybe just make this a warning and not showing any banners if more than one is switched on at a time?
         global $post_type;
         
         if ( $post_type === strtolower( BANNERON_POST_TYPE ) && $where === 'top') {

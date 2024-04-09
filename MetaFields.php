@@ -87,10 +87,11 @@ abstract class MetaFields {
 	 * @param int $post_id The ID of the post being saved.
      * TODO: Find a better return value.....
 	 */
-	public static function Save(Int $post_id, WP_Post $post ): Mixed
+	public static function Save(Int $post_id ): Mixed
     {
 
-        if($post->post_type != BANNERON_POST_TYPE) return $post_id;
+        $post = get_post($post_id);
+        if($post->post_type !== strtolower(BANNERON_POST_TYPE)) return $post_id;
 
 		// Check if our nonce is set.
 		if ( ! isset( $_POST['banneron_nonce'] ) ) {
