@@ -30,23 +30,20 @@ abstract class MetaFields {
     {
 
         self::Style();
-        $active = self::GetMetaValue($post->ID, 'banner_active');
-        $users = self::GetMetaValue($post->ID, 'targewt_users');
+        $users = self::GetMetaValue($post->ID, 'target_users');
         $nonce = wp_create_nonce( basename(__FILE__) );
        
         echo '<div class="banneron-wrap">';
         echo '<input type="hidden" name="banneron_nonce" value="' .$nonce . '">';  
 
-        echo '<input type="checkbox" name="banneron_active"';
-        echo 'id="banneron_active" class="postbox" ' . $active . '>';
-        echo '<label for="banneron_active">Banner activated</label></div>';
-
         echo '<select name="banneron_target_users"';
-        echo 'id="banneron_target_users" class="postbox">';
+        echo 'id="banneron_target_users" class="postbox" multiple="multiple">';
         echo '<option value="' . $users . '">' . $users . '</option>'; // TBD
-        echo '<option value="xxxxx">xxxxxx</option>'; // TBD
-        echo '<option value="yyyyy">yyyyyy</option>'; // TBD
-        echo '<option value="zzzzz">zzzzzz</option>'; // TBD
+        echo '<option value="xxxxx">All logged-in users</option>'; // TBD
+        echo '<option value="yyyyy">Only subscribers</option>'; // TBD
+        echo '<option value="zzzzz">Only premium users</option>'; // TBD
+        echo '<option value="zzzzz">Only school users</option>'; // TBD
+        echo '<option value="zzzzz">Only school users</option>'; // TBD
         echo '</select>';
 
         echo '</div>';
@@ -68,15 +65,16 @@ abstract class MetaFields {
 
 
     public static function Style(): void
+    // Can we move this to avoid checking post type again?
     {
-        global $typenow;
-
-        echo "<script>console.log('adding style. typenow is " . ucfirst($typenow) . "');</script>";
-        echo "<script>console.log('adding style. bannertime_post_type is " . BANNERON_POST_TYPE . "');</script>";
+        global $typenow; //Deprecated?
 
         if( BANNERON_POST_TYPE === ucfirst($typenow) ) {
-            wp_register_style( 'bannertime-styles',  plugins_url( 'assets/styles.css' , dirname(__FILE__) ));
-            wp_enqueue_style('bannertime-styles');
+            wp_register_style( 'banneron-styles',  plugin_dir_path( __FILE__ ) . 'assets/styles.css' );
+            wp_enqueue_style('banneron-styles');
+            wp_enqueue_style( 'select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css' );
+	        wp_enqueue_script( 'select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array( 'jquery' ) );
+            
         }
     }
 
@@ -127,11 +125,17 @@ abstract class MetaFields {
 		/* OK, it's safe for us to save the data now. */
 
 		// Sanitize the user input.
-		$mydata = sanitize_text_field( $_POST['myplugin_new_field'] );
+		$target = sanitize_text_field( $_POST['target_users'] );
 
 		// Update the meta field.
-		update_post_meta( $post_id, '_my_meta_value_key', $mydata );
+		update_post_meta( $post_id, 'target_users', $target );
 	}
+
+
+    public static function InitSelect2(): void
+    {
+        echo "<script>jQuery(document).ready(function() { console.log('wtf man...'); jQuery('#banneron_target_users').select2(); });</script>";
+    }
 
 
 }
