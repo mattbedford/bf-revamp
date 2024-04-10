@@ -33,4 +33,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'SetUp.php';
 SetUp::init();
 
+// Just for testing
+function write_log($log) {
+	if (true === WP_DEBUG) {
+		if (is_array($log) || is_object($log)) {
+			error_log(print_r($log, true));
+		} else {
+			error_log($log);
+		}
+	}
+}
+
 

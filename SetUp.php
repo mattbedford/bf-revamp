@@ -37,8 +37,6 @@ abstract class SetUp {
             add_action( 'admin_print_styles-post.php', [ 'BannerOn\MetaFields', 'Style' ] );
             add_action( 'save_post', [ 'BannerOn\MetaFields', 'Save' ] );
             add_action( 'manage_posts_extra_tablenav', [self::class, 'CreateOnSwitch'], 20, 1 );
-            add_action( 'admin_footer-post-new.php', [ 'BannerOn\MetaFields', 'InitSelect2' ] );
-            add_action( 'admin_footer-post.php', [ 'BannerOn\MetaFields', 'InitSelect2' ] );
         }
     }
 
