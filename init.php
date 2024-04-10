@@ -32,6 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once plugin_dir_path( __FILE__ ) . 'SetUp.php';
 SetUp::init();
+$banner = new Banner();
+
 
 // Just for testing
 function write_log($log) {

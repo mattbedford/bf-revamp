@@ -15,6 +15,8 @@ abstract class SetUp {
         self::LoadActionHooks();
         self::LoadFrontEndActionHooks();
 
+
+
     }
 
 
@@ -27,6 +29,9 @@ abstract class SetUp {
 
     public static function LoadRequires() {
         require_once plugin_dir_path( __FILE__ ) . 'MetaFields.php';
+        require_once plugin_dir_path( __FILE__ ) . 'CheckUser.php';
+        require_once plugin_dir_path( __FILE__ ) . 'Banner.php';
+        require_once plugin_dir_path( __FILE__ ) . 'View.php';
     }
 
 
@@ -42,6 +47,7 @@ abstract class SetUp {
 
 
     public static function LoadActionHooks() {
+        // TODO: Probably move to adminhooks section
         add_action( 'wp_loaded', [ self::class, 'CreatePostType' ] );
         add_action( 'add_meta_boxes', [ 'BannerOn\MetaFields', 'Add' ] );
         /* add_action('wp_enqueue_scripts', array($this, 'set_up_bfb_scripts'));
@@ -104,6 +110,7 @@ abstract class SetUp {
     {
         if(is_admin()) return;
         add_action( 'wp_enqueue_scripts', [self::class, 'LoadFrontEndScripts']);
+        /********** NEEDS TO CALL A CLASS WITH NEW, NOT STATIC!!! */
     }
 
 
