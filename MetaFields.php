@@ -34,10 +34,12 @@ abstract class MetaFields {
         echo "<script>console.log(" . json_encode($saved_user_types) . ")</script>";
         $nonce = wp_create_nonce( "banneron_nonce" );
        
+        // TODO: Change these to actual cap values for greater future flexibility.
         $possible_values = [
             ["name" => "monthly", "label" => "Monthly premium"],
             ["name" => "annual", "label" => "Annual premium"],
-            ["name" => "school", "label" => "School users"]
+            ["name" => "school", "label" => "School users"],
+            ["name" => "subscribers", "label" => "Subscribers"],
         ];
 
         echo '<div class="banneron-wrap">';
