@@ -24,7 +24,20 @@ class Controller {
     {
 
         $this->user = wp_get_current_user();
-        
+        $this->user_type = $this->user->roles[0];
+        if(user_can($this->user, 'administrator')) return "admin";
+
+        if (is_user_logged_in()) {
+            if(current_user_can('s2member_level2')){
+               echo '<li><a>School admin</a></li>';
+            } elseif(current_user_can('s2member_level1')){
+                echo '<li><a>Premium member</a></li>';
+            } elseif(current_user_can('edit_posts')){
+                echo '<li><a>Staff user</a></li>';
+            } else {
+                echo '<li><a href="/membership/">Upgrade today</a></li>';
+            }
+       }
 
         return "monthly";        
 
