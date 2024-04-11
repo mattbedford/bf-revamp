@@ -29,9 +29,6 @@ abstract class SetUp {
 
     public static function LoadRequires() {
         require_once plugin_dir_path( __FILE__ ) . 'MetaFields.php';
-        require_once plugin_dir_path( __FILE__ ) . 'CheckUser.php';
-        require_once plugin_dir_path( __FILE__ ) . 'Banner.php';
-        require_once plugin_dir_path( __FILE__ ) . 'View.php';
     }
 
 

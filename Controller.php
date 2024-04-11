@@ -5,7 +5,7 @@ namespace BannerOn;
 use WP_User;
 
 
-class CheckUser {
+class Controller {
 
 
     private WP_User $user;
@@ -13,16 +13,18 @@ class CheckUser {
 
     function __construct()
     {
-        write_log("Checking user in CheckUser.php");
-        if(!is_user_logged_in()) return;
-        $this->user = wp_get_current_user();
-        $this->user_type = $this->EvaluateUserType();
+
+        if(is_admin() || !is_user_logged_in()) return;
+        add_action( 'wp_head', [ $this, 'EvaluateUserType' ] );
 
     }
 
 
     private function EvaluateUserType(): string
     {
+
+        $this->user = wp_get_current_user();
+        
 
         return "monthly";        
 
