@@ -29,6 +29,10 @@ abstract class SetUp {
 
     public static function LoadRequires() {
         require_once plugin_dir_path( __FILE__ ) . 'MetaFields.php';
+        require_once plugin_dir_path( __FILE__ ) . 'Model.php';
+        require_once plugin_dir_path( __FILE__ ) . 'View.php';
+        require_once plugin_dir_path( __FILE__ ) . 'Controller.php';
+        require_once plugin_dir_path( __FILE__ ) . 'Frame.php';
     }
 
 
@@ -107,7 +111,6 @@ abstract class SetUp {
     {
         if(is_admin()) return;
         add_action( 'wp_enqueue_scripts', [self::class, 'LoadFrontEndScripts']);
-        /********** NEEDS TO CALL A CLASS WITH NEW, NOT STATIC!!! */
     }
 
 
@@ -116,24 +119,6 @@ abstract class SetUp {
         if(is_admin()) return; //or return null for void?
 
         // Also, do some other check to see if we need even bother with this for current user..... 
-
-        $rest_args = array(
-            'rest_base' => site_url() . "/wp-json/bannertime-api",
-            'rest_nonce' => wp_create_nonce('wp_rest'),
-        );
-
-        wp_register_script( 
-            'scroll-lock', 
-            'https://cdnjs.cloudflare.com/ajax/libs/scroll-lock/2.1.2/scroll-lock.min.js',
-            [],
-            false,
-            false
-        );
-        wp_enqueue_script( 'scroll-lock' );
-        wp_register_script( 'frontend_rest_api_vars', false );
-        wp_localize_script( 'frontend_rest_api_vars', 'nonce_object', $rest_args );
-        wp_enqueue_script( 'frontend_rest_api_vars' );
-
     }
 
 }

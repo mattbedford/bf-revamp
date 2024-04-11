@@ -36,10 +36,10 @@ abstract class MetaFields {
        
         // TODO: Change these to actual cap values for greater future flexibility.
         $possible_values = [
+            ["name" => "free", "label" => "Free users"],
             ["name" => "monthly", "label" => "Monthly premium"],
             ["name" => "annual", "label" => "Annual premium"],
             ["name" => "school", "label" => "School users"],
-            ["name" => "subscribers", "label" => "Subscribers"],
         ];
 
         echo '<div class="banneron-wrap">';
@@ -72,7 +72,7 @@ abstract class MetaFields {
     {
         $meta = get_post_meta( $post_id, $key, false );
         if(!is_array($meta)) return [];
-        if(is_array($meta[0])) return $meta[0];
+        if(isset($meta[0]) && is_array($meta[0])) return $meta[0];
         return $meta;
     }
 
