@@ -28,6 +28,7 @@ class Frame {
     {
 
         echo "<div class='banner'>";
+        echo "<button class='close' id='closeBannerOn'>&#x2715;</button>";
         echo "<h1>{$this->contents['headline']}</h1>";
         echo "<img src='{$this->contents['image']}' />";
         echo "<p>{$this->contents['content']}</p>";
