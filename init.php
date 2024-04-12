@@ -27,17 +27,14 @@ with this program. If not, visit: https://www.gnu.org/licenses/
 
 namespace BannerOn;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
-require_once plugin_dir_path( __FILE__ ) . 'admin/SetUp.php';
+require_once plugin_dir_path(__FILE__) . 'admin/SetUp.php';
 
 // Run back-end scripts
 SetUp::init();
 
 // Run front-end scripts
 new Controller();
-
-
-

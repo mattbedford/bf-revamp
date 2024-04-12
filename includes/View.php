@@ -5,18 +5,18 @@ namespace BannerOn;
 use WP_Post, BannerOn\Frame;
 
 
-class View {
-    
+class View
+{
 
-   private $contents = [];
-    
 
-    function __construct(WP_Post $banner, $frame = new Frame()) 
+    private $contents = [];
+
+
+    function __construct(WP_Post $banner, $frame = new Frame())
     {
 
         $this->LoadContents($banner->ID);
-        if(!empty($this->contents)) $frame->Create($this->contents);
-
+        if (!empty($this->contents)) $frame->Create($this->contents);
     }
 
 
@@ -27,9 +27,6 @@ class View {
             'headline' => get_the_title($banner_id),
             'image' => get_the_post_thumbnail_url($banner_id),
             'content' => get_the_content(null, false, $banner_id)
-        
         ];
-
     }
-
 }

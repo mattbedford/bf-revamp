@@ -5,31 +5,29 @@ namespace BannerOn;
 use WP_User, WP_Query, BannerOn\Model;
 
 
-class Controller {
+class Controller
+{
 
 
     function __construct()
     {
 
-        add_action( 'template_redirect', [ $this, 'BannerIsAvailable' ] );   
-        
+        add_action('template_redirect', [$this, 'BannerIsAvailable']);
     }
 
 
     public function BannerIsAvailable(): void
     {
-        
-        if(is_admin() || !is_user_logged_in()) return;
 
-        $banners = new WP_Query( [ 'post_type' => BANNERON_POST_TYPE ] );
-        if($banners->found_posts !== 1) return;
+        if (is_admin() || !is_user_logged_in()) return;
+
+        $banners = new WP_Query(['post_type' => BANNERON_POST_TYPE]);
+        if ($banners->found_posts !== 1) return;
 
         $banner = $banners->posts[0];
         $user = wp_get_current_user();
-        if(!$user instanceof WP_User) return;
+        if (!$user instanceof WP_User) return;
 
-        new Model($banner, $user); 
-        
+        new Model($banner, $user);
     }
-
 }

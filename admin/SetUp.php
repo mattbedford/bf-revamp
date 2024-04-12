@@ -4,55 +4,54 @@
 namespace BannerOn;
 
 
-abstract class SetUp {
+abstract class SetUp
+{
 
 
-    public static function init() {
+    public static function init()
+    {
 
         self::SetConstants();
         self::LoadRequires();
         self::LoadAdminActionHooks();
-
     }
 
 
     public static function SetConstants(): void
     {
 
-        if ( !defined( 'BANNERON_POST_TYPE' ) ) {
-            define( 'BANNERON_POST_TYPE', 'Banner' );
+        if (!defined('BANNERON_POST_TYPE')) {
+            define('BANNERON_POST_TYPE', 'Banner');
         }
-
     }
 
 
     public static function LoadRequires(): void
     {
 
-        require_once plugin_dir_path( __FILE__ ) . 'Logger.php';
-        require_once plugin_dir_path( __FILE__ ) . 'MetaFields.php';
-        require_once plugin_dir_path( __FILE__ ) . 'Model.php';
-        require_once plugin_dir_path( __FILE__ ) . 'Controller.php';
-        require_once plugin_dir_path( __DIR__ ) . 'includes/Frame.php';
-        require_once plugin_dir_path( __DIR__ ) . 'includes/View.php';
-    
+        require_once plugin_dir_path(__FILE__) . 'Logger.php';
+        require_once plugin_dir_path(__FILE__) . 'MetaFields.php';
+        require_once plugin_dir_path(__FILE__) . 'Model.php';
+        require_once plugin_dir_path(__FILE__) . 'Controller.php';
+        require_once plugin_dir_path(__DIR__) . 'includes/Frame.php';
+        require_once plugin_dir_path(__DIR__) . 'includes/View.php';
     }
 
 
     public static function LoadAdminActionHooks(): void
     {
-        if(is_admin()) {
-            add_action( 'admin_print_styles-post-new.php', [ 'BannerOn\MetaFields', 'Style' ] );
-            add_action( 'admin_print_styles-post.php', [ 'BannerOn\MetaFields', 'Style' ] );
-            add_action( 'save_post', [ 'BannerOn\MetaFields', 'Save' ] );
-            add_action( 'manage_posts_extra_tablenav', [self::class, 'CreateOnSwitch'], 20, 1 );
-            add_action( 'wp_loaded', [ self::class, 'CreatePostType' ] );
-            add_action( 'add_meta_boxes', [ 'BannerOn\MetaFields', 'Add' ] );
+        if (is_admin()) {
+            add_action('admin_print_styles-post-new.php', ['BannerOn\MetaFields', 'Style']);
+            add_action('admin_print_styles-post.php', ['BannerOn\MetaFields', 'Style']);
+            add_action('save_post', ['BannerOn\MetaFields', 'Save']);
+            add_action('manage_posts_extra_tablenav', [self::class, 'CreateOnSwitch'], 20, 1);
+            add_action('wp_loaded', [self::class, 'CreatePostType']);
+            add_action('add_meta_boxes', ['BannerOn\MetaFields', 'Add']);
         }
     }
 
 
-    public static function CreatePostType(): void 
+    public static function CreatePostType(): void
     {
         $wp_admin_ui = true;
 
@@ -77,16 +76,15 @@ abstract class SetUp {
         );
 
         register_post_type(BANNERON_POST_TYPE, $post_type_vars);
-    
     }
 
 
-    public static function CreateOnSwitch($where): void 
+    public static function CreateOnSwitch($where): void
     {
         // TODO: Maybe just make this a warning and not showing any banners if more than one is switched on at a time?
         global $post_type;
-        
-        if ( $post_type === strtolower( BANNERON_POST_TYPE ) && $where === 'top') {
+
+        if ($post_type === strtolower(BANNERON_POST_TYPE) && $where === 'top') {
             echo '<div class="alignleft actions">';
             echo '<select name="banneron_post_type" id="banneron_post_type">';
             echo '<option value="all">All post types</option>';
@@ -96,9 +94,6 @@ abstract class SetUp {
             echo '</select>';
             echo '<input type="submit" id="post-query-submit" class="button" value="Filter">';
             echo '</div>';
-            
         }
-
     }
-
 }
