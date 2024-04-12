@@ -2,7 +2,7 @@
 
 namespace BannerOn;
 
-use WP_Post, WP_User;
+use WP_Post, WP_User, BannerOn\Logger;
 
 
 class Model {
@@ -21,15 +21,8 @@ class Model {
         $banner_target = MetaFields::GetMetaValue($this->banner->ID, 'banneron_target_users');
         $matched_caps = $this->IntersectUserCapsPostTargets($banner_target);
         
-        if(count($matched_caps) <= 0) {
-            write_log("No caps found for user {$this->user->ID} and banner {$this->banner->ID}");
-            return;
-        }
-        if(count($matched_caps) > 1) {
-            write_log("Multiple caps found for user {$this->user->ID} and banner {$this->banner->ID}");
-            return;
-        }
-        if(count($matched_caps) === 1) write_log("Single cap found for user {$this->user->ID} and banner {$this->banner->ID}");
+        if(count($matched_caps) === 1) Logger::write_log("Single cap found for user {$this->user->ID} and banner {$this->banner->ID}");
+        else Logger::write_log("Incorrect number of caps found for user {$this->user->ID} and banner {$this->banner->ID}");
 
         new View($this->banner);  
 
@@ -57,11 +50,13 @@ class Model {
                 continue;
             }
             if($target === "free") {
+                // Is ths correct?
                 if(user_can($this->user, 's2member_level0')) $count_true_caps_found[] = 's2member_level0';
                 continue;
             }
         }
 
+        //JUST FOR TESTING
         return ["admin"];
         return $count_true_caps_found;
 

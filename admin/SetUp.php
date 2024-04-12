@@ -12,49 +12,43 @@ abstract class SetUp {
         self::SetConstants();
         self::LoadRequires();
         self::LoadAdminActionHooks();
-        self::LoadActionHooks();
-        self::LoadFrontEndActionHooks();
-
-
 
     }
 
 
-    public static function SetConstants() {
+    public static function SetConstants(): void
+    {
+
         if ( !defined( 'BANNERON_POST_TYPE' ) ) {
             define( 'BANNERON_POST_TYPE', 'Banner' );
-        }   
+        }
+
     }
 
 
-    public static function LoadRequires() {
+    public static function LoadRequires(): void
+    {
+
+        require_once plugin_dir_path( __FILE__ ) . 'Logger.php';
         require_once plugin_dir_path( __FILE__ ) . 'MetaFields.php';
         require_once plugin_dir_path( __FILE__ ) . 'Model.php';
-        require_once plugin_dir_path( __FILE__ ) . 'View.php';
         require_once plugin_dir_path( __FILE__ ) . 'Controller.php';
-        require_once plugin_dir_path( __FILE__ ) . 'Frame.php';
+        require_once plugin_dir_path( __DIR__ ) . 'includes/Frame.php';
+        require_once plugin_dir_path( __DIR__ ) . 'includes/View.php';
+    
     }
 
 
-
-    public static function LoadAdminActionHooks() {
+    public static function LoadAdminActionHooks(): void
+    {
         if(is_admin()) {
             add_action( 'admin_print_styles-post-new.php', [ 'BannerOn\MetaFields', 'Style' ] );
             add_action( 'admin_print_styles-post.php', [ 'BannerOn\MetaFields', 'Style' ] );
             add_action( 'save_post', [ 'BannerOn\MetaFields', 'Save' ] );
             add_action( 'manage_posts_extra_tablenav', [self::class, 'CreateOnSwitch'], 20, 1 );
+            add_action( 'wp_loaded', [ self::class, 'CreatePostType' ] );
+            add_action( 'add_meta_boxes', [ 'BannerOn\MetaFields', 'Add' ] );
         }
-    }
-
-
-    public static function LoadActionHooks() {
-        // TODO: Probably move to adminhooks section
-        add_action( 'wp_loaded', [ self::class, 'CreatePostType' ] );
-        add_action( 'add_meta_boxes', [ 'BannerOn\MetaFields', 'Add' ] );
-        /* add_action('wp_enqueue_scripts', array($this, 'set_up_bfb_scripts'));
-        add_action('wp_head', array($this, 'add_bfb_cookie_expiry'));
-        add_action('wp_footer', array($this, 'bfb_gotime'));*/
-        //register_uninstall_hook(__FILE__, array('BannerOn\SetUp', 'bfb_uninstall_me'));
     }
 
 
@@ -87,7 +81,8 @@ abstract class SetUp {
     }
 
 
-    public static function CreateOnSwitch($where) {
+    public static function CreateOnSwitch($where): void 
+    {
         // TODO: Maybe just make this a warning and not showing any banners if more than one is switched on at a time?
         global $post_type;
         
@@ -104,21 +99,6 @@ abstract class SetUp {
             
         }
 
-    }
-
-
-    public static function LoadFrontEndActionHooks(): void 
-    {
-        if(is_admin()) return;
-        add_action( 'wp_enqueue_scripts', [self::class, 'LoadFrontEndScripts']);
-    }
-
-
-    public static function LoadFrontEndScripts(): void 
-    {
-        if(is_admin()) return; //or return null for void?
-
-        // Also, do some other check to see if we need even bother with this for current user..... 
     }
 
 }

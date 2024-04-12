@@ -11,7 +11,6 @@ class Controller {
     function __construct()
     {
 
-        // This may not be the right hook.... needs to be before enqueue scripts
         add_action( 'template_redirect', [ $this, 'BannerIsAvailable' ] );   
         
     }

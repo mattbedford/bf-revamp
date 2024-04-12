@@ -30,19 +30,14 @@ namespace BannerOn;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-require_once plugin_dir_path( __FILE__ ) . 'SetUp.php';
+
+require_once plugin_dir_path( __FILE__ ) . 'admin/SetUp.php';
+
+// Run back-end scripts
 SetUp::init();
+
+// Run front-end scripts
 new Controller();
 
-// Just for testing
-function write_log($log) {
-	if (true === WP_DEBUG) {
-		if (is_array($log) || is_object($log)) {
-			error_log(print_r($log, true));
-		} else {
-			error_log($log);
-		}
-	}
-}
 
 

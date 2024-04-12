@@ -11,13 +11,13 @@ class View {
    private $contents = [];
     
 
-    function __construct(WP_Post $banner, $frame = new Frame()) {
+    function __construct(WP_Post $banner, $frame = new Frame()) 
+    {
 
         $this->LoadContents($banner->ID);
-
         if(!empty($this->contents)) $frame->Create($this->contents);
-    }
 
+    }
 
 
     public function LoadContents($banner_id): void

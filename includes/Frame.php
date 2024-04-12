@@ -43,7 +43,7 @@ class Frame {
     {
         
         wp_enqueue_script( 'scroll-lock' );
-        wp_enqueue_style('banneron-styles', plugin_dir_url( __FILE__ ) . 'banneron.css');
+        wp_enqueue_style('banneron-styles', plugin_dir_url( __FILE__ ) . 'assets/banneron.css');
        
         $rest_args = array(
             'rest_base' => site_url() . "/wp-json/bannertime-api",
@@ -57,7 +57,7 @@ class Frame {
             false,
             false
         );
-        wp_register_script( 'banneron-js', plugin_dir_url( __FILE__ ) . 'banneron.js', ['scroll-lock'], '', true );
+        wp_register_script( 'banneron-js', plugin_dir_url( __FILE__ ) . 'assets/banneron.js', ['scroll-lock'], '', true );
 
 
         wp_register_script( 'frontend_rest_api_vars', false );

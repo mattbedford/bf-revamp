@@ -34,7 +34,6 @@ abstract class MetaFields {
         echo "<script>console.log(" . json_encode($saved_user_types) . ")</script>";
         $nonce = wp_create_nonce( "banneron_nonce" );
        
-        // TODO: Change these to actual cap values for greater future flexibility.
         $possible_values = [
             ["name" => "free", "label" => "Free users"],
             ["name" => "monthly", "label" => "Monthly premium"],
@@ -90,7 +89,7 @@ abstract class MetaFields {
     }
 
 
-    	/**
+    /**
 	 * Save the meta when the post is saved.
 	 *
 	 * @param int $post_id The ID of the post being saved.
