@@ -36,12 +36,11 @@ abstract class SetUp
 
         require_once plugin_dir_path(__FILE__) . 'Logger.php';
         require_once plugin_dir_path(__FILE__) . 'MetaFields.php';
-        require_once plugin_dir_path(__FILE__) . 'user-type-intersect/UserIntersect.php';
-        foreach ( glob( plugin_dir_path(__FILE__) . "user-type-intersect/*.php" ) as $filename )
+        require_once plugin_dir_path(__FILE__) . 'models/Model.php';
+        foreach ( glob( plugin_dir_path(__FILE__) . "models/*.php" ) as $filename )
         {
             require_once $filename;
         }
-        require_once plugin_dir_path(__FILE__) . 'Model.php';
         require_once plugin_dir_path(__FILE__) . 'Controller.php';
         require_once plugin_dir_path(__DIR__) . 'includes/Frame.php';
         require_once plugin_dir_path(__DIR__) . 'includes/View.php';

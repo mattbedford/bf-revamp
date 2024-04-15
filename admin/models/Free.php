@@ -4,10 +4,10 @@ namespace BannerOn;
 
 use WP_User;
 
-class Free extends UserIntersect
+class Free extends Model
 {
 
-    public function UserIsOfType(WP_User $user): bool
+    public function UserMatchesTarget(WP_User $user): bool
     {
 
         if (

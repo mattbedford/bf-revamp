@@ -62,11 +62,11 @@ abstract class MetaFields
      *
      * @return array
      */
-    public static function GetMetaValue(int $post_id, string $key): string
+    public static function GetMetaValue(int $post_id, string $key): String
     {
         $meta = get_post_meta($post_id, $key, true);
         if (is_array($meta) || $meta === false) return "";
-        return $meta;
+        return strval($meta);
     }
 
 

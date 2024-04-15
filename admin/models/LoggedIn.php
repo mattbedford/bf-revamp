@@ -5,10 +5,10 @@ namespace BannerOn;
 use WP_User;
 
 
-class LoggedIn extends UserIntersect
+class LoggedIn extends Model
 {
 
-    public function UserIsOfType(WP_User $user): bool
+    public function UserMatchesTarget(WP_User $user): bool
     {
         
         if($user->exists()) return true;

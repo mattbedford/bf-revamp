@@ -28,10 +28,14 @@ class Frame
 
         echo "<div class='banneron_overlay'>";
         echo "<div class='banner'>";
+        echo "<div class='banner_col_1'>";
+        echo "<img src='{$this->contents['image']}' />";
+        echo "</div>";
+        echo "<div class='banner_col_2'>";
         echo "<button class='close' id='closeBannerOn'>&#x2715;</button>";
         echo "<h1>{$this->contents['headline']}</h1>";
-        echo "<img src='{$this->contents['image']}' />";
-        echo "<p>{$this->contents['content']}</p>";
+        echo "<div class='banneron_content'>{$this->contents['content']}</div>";
+        echo "</div>";
         echo "</div>";
         echo "</div>";
     }
