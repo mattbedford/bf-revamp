@@ -37,4 +37,6 @@ require_once plugin_dir_path(__FILE__) . 'admin/SetUp.php';
 SetUp::init();
 
 // Run front-end scripts
-new Controller();
+new DisplayController();
+new RestController();
+

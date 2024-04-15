@@ -5,7 +5,7 @@ namespace BannerOn;
 use WP_User, WP_Query, WP_Post, BannerOn\Model;
 
 
-class Controller
+class DisplayController
 {
 
     private $model = "";

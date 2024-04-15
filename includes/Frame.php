@@ -10,7 +10,6 @@ class Frame
 
     function __construct()
     {
-
         add_action('wp_enqueue_scripts', [$this, 'DoScripts']);
     }
 
@@ -26,7 +25,7 @@ class Frame
     public function Display(): void
     {
 
-        echo "<div class='banneron_overlay'>";
+        echo "<div class='banneron_overlay' id='BannerOnBanner' data-id='{$this->contents['banner_id']}'>";
         echo "<div class='banner'>";
         echo "<div class='banner_col_1'>";
         echo "<img src='{$this->contents['image']}' />";
@@ -63,7 +62,7 @@ class Frame
 
 
         wp_register_script('frontend_rest_api_vars', false);
-        wp_localize_script('frontend_rest_api_vars', 'nonce_object', $rest_args);
+        wp_localize_script('frontend_rest_api_vars', 'banneron_object', $rest_args);
         wp_enqueue_script('frontend_rest_api_vars');
         wp_enqueue_script('banneron-js');
     }

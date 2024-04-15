@@ -24,6 +24,7 @@ class View
     {
 
         $this->contents = [
+            'banner_id' => $banner_id,
             'headline' => get_the_title($banner_id),
             'image' => get_the_post_thumbnail_url($banner_id),
             'content' => get_the_content(null, false, $banner_id)

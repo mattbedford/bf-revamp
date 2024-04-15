@@ -41,7 +41,8 @@ abstract class SetUp
         {
             require_once $filename;
         }
-        require_once plugin_dir_path(__FILE__) . 'Controller.php';
+        require_once plugin_dir_path(__FILE__) . 'controllers/DisplayController.php';
+        require_once plugin_dir_path(__FILE__) . 'controllers/RestController.php';
         require_once plugin_dir_path(__DIR__) . 'includes/Frame.php';
         require_once plugin_dir_path(__DIR__) . 'includes/View.php';
     }

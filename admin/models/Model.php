@@ -2,7 +2,7 @@
 
 namespace BannerOn;
 
-use WP_User, WP_Post, BannerOn\View;
+use WP_User, WP_Post, BannerOn\View, BannerOn\RestController;
 
 
 abstract class Model
