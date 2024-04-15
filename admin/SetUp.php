@@ -23,6 +23,11 @@ abstract class SetUp
         if (!defined('BANNERON_POST_TYPE')) {
             define('BANNERON_POST_TYPE', 'Banner');
         }
+        if(!defined('BANNERON_USER_TYPES')) {
+            define('BANNERON_USER_TYPES', ['school', 'free', 'logged-in', 'all-premium']); 
+            // later on maybe: 'all-premium-individual', 'premium-monthly', 'premium-annual'
+            // kebab-case user types become pascal case in their respective classes (see user-type-intersect/LoggedIn.php for example)
+        }
     }
 
 
@@ -31,6 +36,11 @@ abstract class SetUp
 
         require_once plugin_dir_path(__FILE__) . 'Logger.php';
         require_once plugin_dir_path(__FILE__) . 'MetaFields.php';
+        require_once plugin_dir_path(__FILE__) . 'user-type-intersect/UserIntersect.php';
+        foreach ( glob( plugin_dir_path(__FILE__) . "user-type-intersect/*.php" ) as $filename )
+        {
+            require_once $filename;
+        }
         require_once plugin_dir_path(__FILE__) . 'Model.php';
         require_once plugin_dir_path(__FILE__) . 'Controller.php';
         require_once plugin_dir_path(__DIR__) . 'includes/Frame.php';

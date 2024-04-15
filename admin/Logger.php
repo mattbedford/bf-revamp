@@ -8,7 +8,7 @@ abstract class Logger
 {
 
     // Just for testing
-    public static function write_log($log)
+    public static function info($log)
     {
 
         if (true !== WP_DEBUG) return;
