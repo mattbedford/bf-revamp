@@ -8,40 +8,39 @@ use WP_User, WP_Query, WP_Post, BannerOn\Model;
 class DisplayController
 {
 
-    private $model = "";
-
     function __construct()
     {
 
-        add_action('template_redirect', [$this, 'BannerIsAvailable']);
+        add_action('template_redirect', [$this, 'HandleBanner']);
     }
 
 
-    public function BannerIsAvailable(): void
+    public function HandleBanner(): void
     {
 
-        // Too much going on in here: let's break it up some
         if (is_admin() || !is_user_logged_in()) return;
-
-        $banners = new WP_Query(['post_type' => BANNERON_POST_TYPE]);
-        if ($banners->found_posts !== 1) return;
-
-        $banner = $banners->posts[0];
+        $banner = $this->GetBanner();
         $user = wp_get_current_user();
-        $this->model = $this->GetModelName($banner);
+        $model = $this->GetModelName($banner);
 
-        if (!$user instanceof WP_User || !class_exists($this->model)) return;
-        new $this->model($banner, $user);
-        
+        if (!$user instanceof WP_User || !class_exists($model)) return;
+        new $model($banner, $user);
     }
 
 
-    private function GetModelName(WP_Post $banner): string 
+    private function GetBanner(): WP_Post
+    {
+        $banners = get_posts(['post_type' => BANNERON_POST_TYPE, 'numberposts' => 1]);
+        if (count($banners) !== 1) return null;
+        else return $banners[0];
+    }
+
+
+    private function GetModelName(WP_Post $banner): string
     {
 
         $target_users = MetaFields::GetMetaValue($banner->ID, 'banneron_target_users');
         $converted_banner_target = "BannerOn\\" . str_replace("-", '', ucwords((string)$target_users, "-"));
         return $converted_banner_target;
-    
     }
 }

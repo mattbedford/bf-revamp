@@ -26,7 +26,7 @@ abstract class SetUp
         if(!defined('BANNERON_USER_TYPES')) {
             define('BANNERON_USER_TYPES', ['school', 'free', 'logged-in', 'all-premium']); 
             // later on maybe: 'all-premium-individual', 'premium-monthly', 'premium-annual'
-            // kebab-case user types become pascal case in their respective classes (see user-type-intersect/LoggedIn.php for example)
+            // kebab-case user types become pascal case in their respective classes (see models/LoggedIn.php for example)
         }
     }
 
